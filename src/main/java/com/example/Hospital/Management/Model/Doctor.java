@@ -13,28 +13,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Getter
 @Setter
-@Document(collection = "Hospital_Data")
-public class Hospital {
+@Document(collection = "Doctor")
+public class Doctor {
     @Id
     private ObjectId id;
     @NotBlank
     private String hname;
     @NotBlank
-    private String haddress;
+    private String dname;
     @NotBlank
-    private String hphone;
+    private String password;
     @NotBlank
-    private String hemail;
+    private String gender;
     @NotBlank
-    private String hpassword;
+    private String specialty;
     @NotBlank
-    private int bed;
+    private String phone;
     @NotBlank
-    private int bbed;
-    @NotBlank
-    private int ebed;
-    @NotBlank
-    private int bebed;
-    @NotBlank
-    private Boolean hverified;
+    private String email;
 }

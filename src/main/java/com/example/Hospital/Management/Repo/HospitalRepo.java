@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface HospitalRepo extends MongoRepository<Hospital, Integer> {
 
     Hospital findByHname(String hname);
+    Hospital findByHemail(String hemail);
 }

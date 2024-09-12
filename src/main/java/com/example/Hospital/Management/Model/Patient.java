@@ -1,5 +1,6 @@
 package com.example.Hospital.Management.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,32 +10,36 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Document(collection = "Hospital_Data")
-public class Hospital {
+@Document(collection = "Patient")
+public class Patient {
     @Id
     private ObjectId id;
     @NotBlank
+    private String pname;
+    @NotBlank
     private String hname;
     @NotBlank
-    private String haddress;
+    private String address;
     @NotBlank
-    private String hphone;
+    private String phone;
     @NotBlank
-    private String hemail;
+    private String email;
     @NotBlank
-    private String hpassword;
+    private String gender;
     @NotBlank
-    private int bed;
+    private Date dob;
     @NotBlank
-    private int bbed;
+    private String parent;
     @NotBlank
-    private int ebed;
+    private boolean police;
     @NotBlank
-    private int bebed;
-    @NotBlank
-    private Boolean hverified;
+    private String desc;
+    private String dname;
+    private String pres;
 }
