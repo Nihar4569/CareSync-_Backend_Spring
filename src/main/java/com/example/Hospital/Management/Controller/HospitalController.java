@@ -1,9 +1,6 @@
 package com.example.Hospital.Management.Controller;
 
-import com.example.Hospital.Management.Model.Doctor;
-import com.example.Hospital.Management.Model.Hospital;
-import com.example.Hospital.Management.Model.Medicines;
-import com.example.Hospital.Management.Model.Patient;
+import com.example.Hospital.Management.Model.*;
 import com.example.Hospital.Management.Services.HospitalServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 @RestController
 @RequestMapping("hosp")
 public class HospitalController {
@@ -48,6 +45,17 @@ public class HospitalController {
             return new ResponseEntity<>(hospital,HttpStatus.OK);
     }
 
+    @GetMapping("/verify/{email}")
+    public ResponseEntity<Boolean> verifyHospital(@PathVariable String email) {
+        Hospital hospital = hService.findByEmail(email);
+        if (hospital == null) {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity<>(hService.verified(hospital),HttpStatus.OK);
+    }
+    //Medicines
+
     @PostMapping("/addm")
     public ResponseEntity<Medicines> addMedicine(@RequestBody Medicines medicines) {
         Medicines medicine = hService.addMedicine(medicines);
@@ -66,7 +74,7 @@ public class HospitalController {
     public ResponseEntity<Integer> bookEbed(@PathVariable String hname, @PathVariable String str) {
         return new ResponseEntity<>(hService.updatEbed(hname,str),HttpStatus.OK);
     }
-
+    //Medicines
     @GetMapping("/medi")
     public ResponseEntity<List<Medicines>> getAllMedicines() {
        return ResponseEntity.ok(hService.getAllMedicines());
@@ -86,7 +94,25 @@ public class HospitalController {
         return ResponseEntity.ok(hService.getAllDoctor());
     }
 
-    //Pateint
+    @GetMapping("/doctor/{dname}")
+    public ResponseEntity<Doctor> findDoctorByName(@PathVariable String dname) {
+        Doctor doctor = hService.getDoctor(dname);
+        if (doctor == null) {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity<>(doctor,HttpStatus.OK);
+    }
+    @GetMapping("/doctor/find/{email}")
+    public ResponseEntity<Doctor> finddoctorEmail(@PathVariable String email) {
+        Doctor doctor = hService.getDoctorbyEmail(email);
+        if (doctor == null) {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity<>(doctor,HttpStatus.OK);
+    }
+    //Pateients
     @GetMapping("/pati")
     public ResponseEntity<List<Patient>> getAllPatients() {
         return ResponseEntity.ok(hService.getAllPatient());
@@ -100,5 +126,15 @@ public class HospitalController {
         }
         else
             return new ResponseEntity<>(patient1,HttpStatus.OK);
+    }
+
+    @GetMapping("/govt/{email}")
+    public ResponseEntity<Govt> getGovtByEmail(@PathVariable String email) {
+        Govt govt = hService.getGovt(email);
+        if (govt == null) {
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        }
+        else
+            return new ResponseEntity<>(govt,HttpStatus.OK);
     }
 }

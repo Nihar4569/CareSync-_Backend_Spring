@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface DoctorRepo extends MongoRepository<Doctor,Integer> {
     Doctor findByDname(String dname);
+    Doctor findByEmail(String email);
 }

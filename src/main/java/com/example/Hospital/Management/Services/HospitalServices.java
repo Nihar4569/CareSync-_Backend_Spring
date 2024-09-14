@@ -1,18 +1,13 @@
 package com.example.Hospital.Management.Services;
 
-import com.example.Hospital.Management.Model.Doctor;
-import com.example.Hospital.Management.Model.Hospital;
-import com.example.Hospital.Management.Model.Medicines;
-import com.example.Hospital.Management.Model.Patient;
-import com.example.Hospital.Management.Repo.DoctorRepo;
-import com.example.Hospital.Management.Repo.HospitalRepo;
-import com.example.Hospital.Management.Repo.MedicineRepo;
-import com.example.Hospital.Management.Repo.PatientRepo;
+import com.example.Hospital.Management.Model.*;
+import com.example.Hospital.Management.Repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +21,8 @@ public class HospitalServices {
     DoctorRepo dRepo;
     @Autowired
     PatientRepo pRepo;
+    @Autowired
+    GovtRepo gRepo;
 
     public Hospital addHospital(Hospital hospital) {
         return hRepo.save(hospital);
@@ -40,6 +37,11 @@ public class HospitalServices {
 
     public Hospital findByEmail(String email) {
         return hRepo.findByHemail(email);
+    }
+    public Boolean verified(Hospital hospital) {
+        hospital.setHverified(!hospital.getHverified());
+        hRepo.save(hospital);
+        return hospital.getHverified();
     }
 
 
@@ -58,6 +60,9 @@ public class HospitalServices {
     }
     public Doctor addDoctor(Doctor doctor) {
         return dRepo.save(doctor);
+    }
+    public Doctor getDoctor(String dname) {
+        return dRepo.findByDname(dname);
     }
 
     //Update
@@ -119,4 +124,14 @@ public class HospitalServices {
         return pRepo.save(pati);
     }
 
+    public Doctor getDoctorbyEmail(String email) {
+        return dRepo.findByEmail(email);
+    }
+
+    public Govt addGovt(Govt govt) {
+        return gRepo.save(govt);
+    }
+    public Govt getGovt(String email) {
+        return gRepo.findByEmail(email);
+    }
 }
